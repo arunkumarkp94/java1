@@ -1,0 +1,172 @@
+1) what is on-premise? give example
+On-premise - here the machine and software is installed locally, in a physical location and we need to maintain on our own.
+and it requires a infrastructure and we need to setup environment
+everything will be controlled and managed by ourselvs
+i.e
+application	virtualization
+data		servers
+runtime		storage
+middleware	networking
+os(oper systm)
+
+------------------------------------------------------------------
+2) what is cloud? give example
+machines and softwares are installed in different region and we access the servers over the internet.
+
+example: there are multiple service providers like 
+-aws by amazone
+-azure by microsoft
+-Google cloud by google
+
+--------------------------------------------------------------------
+3) what is server?
+server is a computer machine, which has compute power and storage capability
+
+example: ec2 instances(ealstic compute cloud)
+--------------------------------------------------------------------
+4) what are the cloud servicess?
+ans:
+ Infrastructure as survice (IaaS)
+ Platform as a service (PaaS) 
+ Software as a service (SaaS) 
+ 
+--------------------------------------------------------------------
+5) what is IAAS PAAS SAAS? 
+ Infrastructure as survice (IaaS):
+ ---------------------------------
+ In Iaas the service provider will provide infrastructure as a service and  it's type of cloud computing service that offers  servers,
+ storage, and networking resources on demand.
+ 
+	here, user will be an architect.
+ example: Amazon Web Services (AWS), Microsoft Azure, Google Cloud and DigitalOcean.
+ 
+ Platform as a service (PaaS): 
+------------------------------
+ In Pass the service provider will provide platform as a service and user needs to manage code to develop application and data. 
+ and runtime, middleware, os, vitualization, server, storage and networking will be managed by service providers.
+
+	here, user will be like a developer
+ Example: playstore is platform on which we build application.
+			(software tools to users over the internet. Usually, these tools are needed for application development)
+			
+ Software as a service (SaaS): 
+ -----------------------------
+ In Saas, the service provider will provide software as service which allows users to connect to it and use cloud-based apps over the Internet. 
+ 
+ here, user will be end user.
+ Examples: Google Drive, one drive, email, gira
+ 
+(SaaS provides a complete software solution that you purchase on a pay-as-you-go basis from a cloud service provider.)
+
+--------------------------------------------------------------------
+6) Diff between service and resource?
+ The resource is the “thing” the service is “what it does”
+ a resource is an entity that you can work with
+ 
+ example:
+ ec2 service and instance resource
+ s3	is a service and bucket resource
+
+7) what is regions?
+ region is separate geographical area, where the cloud setup is done.
+
+8) what is availability zone.?
+ each region has multiple isolated locations known as availability zones.
+
+9) on what basis you will select region.?
+ It depends on where the no of users of my application is more.
+ 
+10) what is IAM?
+With AWS Identity and Access Management, we can specify who can access services and resources in AWS
+
+11) why s3 is global in aws?
+ Amazon S3 supports global buckets, 
+ which means that each bucket name must be unique across all AWS accounts in all the AWS Regions within a partition. 
+ (A partition is a grouping of Regions)
+
+12) how will you create iam user?
+we create users and assign necessary permissions to them in the form of policies
+users --> adduser --> 	username
+			Access key - Programmatic access (or the AWS API, CLI, SDK, and other development tools.)
+			Password - AWS Management Console access
+			
+		--->autogenarate password
+			custom password
+
+then, Next permission	--> Add user to group, Copy permissions from existing user, Attach existing policies directly
+			(select "add user to group" and select existing "Group")
+then, next: tag		enter the "key" and "value" 
+then, next: review	review it
+then, create user
+
+
+13)	a) what is roles?
+	b) why roles requered?
+
+14) what is assume roles?
+	
+15) a) what is policies? 
+	b) what are different types of policies?
+
+
+16) what is cloudwatch?
+	Amazon CloudWatch is a monitoring service for AWS cloud resources and the applications .
+	it monitors AWS resources  EC2 instances, DynamoDB tables,
+	
+17) what is metrix? and what are the parameters you pass?
+	Performence of a perticular resorce based on parameters like cpu utilization, disk_free
+		eg: we need to select the resource(EC2) type of pre defined mertrix which we need to moniter (eg: CPU usage)
+
+18) a) What alaram? 
+		survice by Aws it triggers a notification when a Metrix fall outside the given range
+		Ex:
+		If CPU utilization goes beyond the static threshold alarm goes to alarm state 
+		Three states in CW Alarm:
+		Alarm state
+		Insufficient 
+		OK state 
+	
+19)  what is SNS?
+	Simple Notification Service is a notification service provided by Amazon Web Service. 
+
+20) what is topic and subscription?
+	 SNS topic is a logical access point that acts as a communication channel
+	 End users who subscribe to the topic.
+
+21) explain pub-sub model?
+
+	Application-to-application (A2A)
+	Publisher -->  Aws SNS --> subscribers (Aws lamda , Aws Sqs,http/s)
+	
+	Application-to-person (A2P)
+	
+	Publisher --> Aws SNS--> subscribers ( push Notification ,Text Messages,Email)
+	
+
+22) What is diff betn FIFO and Standard queue?
+First-in-first-out delivery, message ordering is preserved
+Exactly-once processing
+
+Statnderd 
+
+At-least-once delivery, message ordering isn't preserved
+Best-effort ordering
+
+23) what is SQS service?
+	Simple Queue Service 
+ SQS has two types of queues: FIFO and Standard and they are focused on the successful delivery and processing of messages by individual
+24) what is SNS service?
+
+	Simple Notification service that provides message delivery from publishers to subscribers
+
+26) what is cloudtrail?
+		used to track user acitivities and API services.
+	•	Auditing tool records all AWS account activity. 
+	•	Any action taken by users, roles and AWS services are recorded to cloud trial.
+	•	Cloud trial events are kept for 90 days in event history 
+	•	You can create a trail of your own store the event history in s3 bucket
+27) what are the main classification in cloudtrail?
+	•	There are two types of event 
+Management events: Management operations performed on AWS 
+Data events : create or modifying data in Database it supports S3 bucket and dynamo Db server. 
+Insights events: unusual activity will be tracked.

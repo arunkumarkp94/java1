@@ -1,0 +1,609 @@
+Cloud and servers
+--------------------
+cloud - is where we access servers over the internet
+	there will be service providers like 
+	-aws by amazone
+	-azure by microsoft
+	-Google cloud by google
+
+server - It is a computer machine, which has compute power and storage capability
+ ex: instances are servers
+
+on-premise and cloud
+=========================
+On-premise: here the machine and software is installed locally, in a physical location and we need to maintain on our own.
+		and it requires a infrastructure and we need to setup an environment
+everything will be controlled and managed by ourselvs
+i.e
+application	virtualization
+data		servers
+runtime		storage
+middleware	networking
+os(oper systm)
+
+
+cloud servicess:
+------------------
+IASS
+PASS
+SASS
+
+
+-----------------------------------------------
+IASS : Infrastructure as survice  (IaaS)
+----------------------------------------
+here, the service provider will provide infrastructure as a service and  it's type of cloud computing service that offers virtualization, servers,
+ storage, and networking resources on demand.
+
+user will be as architect.
+
+Some popular examples of IaaS include Amazon Web Services (AWS), Microsoft Azure, Google Cloud, DigitalOcean, and Linode.
+ 
+PASS:Platform as a service (PaaS) 
+----------------------------------
+here, the service provider will provide platform as a service and user needs to manage code to develop application and data. 
+runtime, middleware, os, vitualization, server, storage and networking will be managed by service providers
+
+here, user will be like a developer
+
+-- software tools to users over the internet. Usually, these tools are needed for application development.
+	ex: EBS(Elastic Beanstalk), google app Engine
+ 
+ 
+SASS :Software as a service (SaaS) 
+----------------------------------
+here, the service provider will provide software as service which allows users to connect to it and use cloud-based apps over the Internet. 
+
+example:Microsoft office 365,Google Drive, one Drive
+
+ SaaS provides a complete software solution that you purchase on a pay-as-you-go basis from a cloud service provider.
+-----------------------------------------------------------------
+
+SERVICE and Resources
+----------------------
+services	resource
+
+ec2 -		instance
+s3		bucket
+
+The resource is the “thing” the service is “what it does”.
+Example
+S3 is a service where you can create a resource.
+
+Global Infrastructure
+--------------------------
+Regions
+Availability Zones
+
+regions and az's
+-----------------
+each aws region is separate geographical area, each region has multiple isolated locations known as availability zones.
+
+on what basis i select region:
+------------------------------
+region: it depends on where the no of users of my application is more, the Response time will be less
+
+
+
+why s3 is global in aws?
+------------------------
+Amazon S3 supports global buckets, 
+which means that each bucket name must be unique across all AWS accounts in all the AWS Regions within a partition. 
+(A partition is a grouping of Regions)
+
+
+=============================================================================================
+Admin: https://www.bmc.com/blogs/saas-vs-paas-vs-iaas-whats-the-difference-and-how-to-choose/
+
+https://aws.amazon.com/about-aws/global-infrastructure/regions_az/?p=ngi&loc=2
+==============================================================================================
+IAM (Identity and Access Management)
+-------------------------------------
+With AWS Identity and Access Management, you can specify who or what can access services and resources in AWS
+
+
+IAM (Identity access management)
+---------------------------------
+1) Access managementUser groups
+	Users
+	Roles
+	Policies
+	Identity providers
+	Account settings
+
+
+2) Access reports
+	Access analyzer
+		Archive rules
+		Analyzers
+		Settings
+	Credential report
+	Organization activity
+	Service control policies (SCPs)
+
+-------------------------------------------------------
+here, Admin can create,modify and delete users
+
+Admin can give access to user
+1)  Console Acess
+2) Programatic Acess (CLI Acess - Command Line Interface)
+
+ Admin can create 
+-----------------
+users
+User Group	(Dev, Testing, Devops)
+Policies
+roles
+
+users:	 An user is an identity with long-term credentials that is used to interact with AWS in an account.
+user group: A user group is a collection of IAM users
+role: is an identity you can create that has specific permissions with credentials that are valid for short durations
+policies: A policy is an object in AWS that defines permissions.
+
+(we will create set of permission as Policies, we can use these policies to create roles,  also we can use these Policies to create Group)
+
+----------------------------------------------------
+creating user:
+---------------
+users --> adduser --> 	username
+			Access key - Programmatic access (or the AWS API, CLI, SDK, and other development tools.)
+			Password - AWS Management Console access
+			
+		--->	autogenarate password
+			custom password
+
+then, Next permission	--> Add user to group, Copy permissions from existing user, Attach existing policies directly
+			(select "add user to group" and select existing "Group")
+then, next: tag		enter the "key" and "value" 
+then, next: review	review it
+then, create user
+
+============================================================
+by these user we can login to cosole aswell as CLI
+
+C:\> msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+
+
+aws --version
+aws-cli/2.9.0 Python/3.9.11 Windows/10 exe/AMD64 prompt/off
+
+
+>aws configure
+
+AWS Access Key ID [None]: AKIAQ4NNPKLZYGDNXQMZ
+AWS Secret Access Key [None]: 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
+Default region name [None]: ap-south-1
+Default output format [None]: json
+
+C:\Users\Lenovo>aws ec2 describe-instances
+
+aws ec2 describe-instances --filters "Name=tag:Name,Values=Test1_C"
+
+=================================================
+------------------------------------------
+
+
+aws sts assume-role --role-arn arn:aws:iam::061030224627:role/role_mahesh --role-session-name s3-access-example  --duration-seconds 3600
+
+aws sts assume-role --role-arn arn:aws:iam::061030224627:role/role_vijay --role-session-name s3-access-example  --duration-seconds 3600
+
+-------------------------------------------------------------------------------------
+
+
+Cloudwatch:
+==============
+CloudWatch is a monitoring service, it is used to monitor resources and applications.
+	it monitors AWS resources  EC2 instances, DynamoDB tables,
+
+Alarms	: survice by Aws it triggers a notification when a Metrix fall outside the given range
+
+Matrics : Performence of a perticular resorce based on parameters like cpu utilization, disk_free, read speed, write speed etc.
+
+	for example: If CPU utilization goes beyond the static threshold alarm goes to alarm state
+
+alarm has 3 states:
+------------------
+	Alarm state	(Breaching threshold)
+	Insufficient 	(There is no data)
+	OK state 	(Not crossing threshold)
+
+we will configure alarms to get notification via email or sms
+
+---------------------------------------------------------------------------------------------
+SNS (Simple Notification Service)
+--------------------------------
+Simple Notification Service is a notification service provided by AWS
+
+it has 	-Topics		:it is a logical access point that acts as a communication channel
+	-Subscriptions	:End users who subscribe to the topic.
+
+Pub-Sub Model:
+--------------
+Application-to-application (A2A)
+	Publisher -->  SNS Topic --> subscribers (Aws lamda , Aws Sqs,http, https)
+	
+Application-to-person (A2P)
+	Publisher --> SNS topic--> subscribers ( push Notification ,Text Messages,Email)
+
+
+========================================================================================
+
+Cloudtrail: used to track user acitivities and API services.
+----------
+•	Any action taken by users, roles and AWS services are recorded to cloud trial.
+•	Cloud trial events are kept for 90 days in event history 
+•	You can create a trail of your own store the event history in s3 bucket
+•	The data of Cloudtrail is stored in S3 bucket
+
+Main classification in cloudtrail
+---------------------------------
+There are three types of event: 
+Management events: Management operations performed on AWS 
+
+Data events : create or modifying data in Database it supports S3 bucket and dynamo Db server. 
+
+Insights events: unusual activity will be tracked.
+
+=================================================================================================
+
+
+while creating SNS Topic it uses SQS 
+-------------------------------------
+1) Standard Queue :At-least-once delivery, message ordering isn't preserved (Best-effort ordering)
+2) FIFO	Queue	:First-in-first-out delivery, message ordering is preserved (Exactly-once processing)
+
+here, 	FIFO	---Supports--> SQS
+	Standard---Supports--> http/https, text message, email, push notification
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+SQS (Simple Queue service)
+-------------------------
+ -SQS provides message delivery from publishers to subscribers
+ -You can not change the queue type after you create a queue
+
+SQS has two types of queues: 
+FIFO and Standard 
+and they are focused on the successful delivery and processing of messages by individual
+
+we were having microservice based architechture where one of the microservice is producing the data
+and other microservice wants to consume this data.. (then i had got a chance to create the SQS)
+
+-----
+Visibility timeout:
+	Visibility timeout sets the length of time that a message received from a queue (by one consumer) 
+	will not be visible to the other message consumers.
+
+Retention period:
+	amount of time that Amazon SQS retains a message that does not get deleted. 
+	default retention period is 4 days
+	Should be between 1 minute and 14 days.
+
+Delivery delay: 
+	If your consumers need additional time to process messages, you can delay each new message coming to the queue
+	Min 0-seconds and Max 15-minutes
+
+Maximum message size:
+	You can set the maximum message size for your queue
+	Should be between 1 KB and 256 KB(by default 256kb)
+	By using Java client lib function max size payload can be 2gb
+
+Receive message wait time:
+	It is the maximum amount of time that polling will wait for messages to become available to receive.
+	Polling Should be between 0 and 20 seconds
+
+------
+Dead-letter queue:
+	If a message can't be consumed successfully, you can send it to a dead-letter queue (DLQ).	
+	Dead-letter queues let you isolate problematic messages to determine why they are failing.
+
+----------------------------------------------
+KMS (Key management Service):
+----------------------------
+	it easily creates a key and control encryption
+
+Encryption: We can not send data as it is over the internet, we will encrypt it.
+
+
+Client side encryption:	You encrypt your data before data submited to server
+
+Server side encryption:	-AWS encrypts data on your behalf after data is recieved by server
+			-encryption key managd by AWS
+
+in KMS keys:
+------------	
+	AWS Managed Keys	SSE-SQS	--> Managed by AWS
+	Customer Manage Key	SSE-KMS --> Managed by a User
+
+-------------------------------------------
+1) Difference Between Monolithic Archetecture and Microservice Architechture
+ whole app deployed at once , part by part deployment of apps
+====================================================================================================
+	
+AWS Secrets Manager: 
+--------------------
+	It is used to store the Credentials of applications (username & Password)
+
+Secret type:
+	RDS Database
+	DocumentDB database
+	Redshift cluster
+	Credentials for other database
+	Other type of secret
+
+What do you mean by rotation of keys/Credentials?
+--> The credential might get compromiser, So we need to set Rotation of Key(we can change password frequently)
+
+How do You pull Secreat to code?
+-->
+
+=====================================================================================================
+S3 (Simple Storage Service)
+---------------------------
+	It is a general Hard disk we can store a data.
+s3 uses Buckets, it is a just a disk where we can dump a data to it
+
+S3 Provides a web interface to store and retrive any amount of data from anywhere on the web.
+
+Based on the criticality of the object S3 classified the storage classes
+
+Standerd: used to store the higly critical object,its more expencive and high dureblity.
+
+Reduce Redendency storage: used to store the non critical objects, 
+
+infrequent access :Designed for less frecqunetly accessed objects
+
+Glaciar : Desined for historical archival files , cheaper s3 storage.
+
+Bucket
+------
+	public
+	private
+	
+	--------------------------------------
+	
+	s3 replication ?
+	
+	
+===========================================================================================================
+RDS : Relational Data service 
+Differece between RDBMS AND non relational database
+
+Relational db: stored structerd data in rows and columns and one table has primary and forign relation between other.
+eg : oracle mysql Aws auvra
+
+Non Relational Db : Stored unstracterd data uses no sql ,eg : Dynamo Db , Cassandra, Mango DB.
+
+Amezon Document DB : it is a unstructured Db porvided by Aws.
+
+
+Amazon Relational Database Service (Amazon RDS) makes it easy to set up, operate, and
+scale a relational database in the cloud.
+  Which relational database engines does Amazon RDS support?
+   Amazon RDS database engines:
+      Amazon Aurora
+      PostgreSQL
+      MySQL
+      MariaDB
+      Oracle
+      Microsoft SQL Server
+		
+Can we enable encryption on exciting DB
+Encrypting existing DBs is not supported. To do this, you’ll need to create a new
+encrypted instance and migrate data to it. The encryption key can be stored in KMS.
+
+Which is the non-relational database supported in AWS
+Amazon DynamoDB is the NoSQL database supported by AWS
+
+what is key value store ?
+A key-value database is a type of nonrelational database that uses a simple key-value method to store data.
+
+steps to create DB?
+=====================================================================================
+===============================VPC==================================
+VPC (Virtual Private Cloud):
+----------------------------
+Amazon Virtual Private Cloud enables you to launch AWS resources into a virtual network that you've defined like like EC2 instance, database
+
+CIDR:(Classes interdomain routing)
+it is a method for allocating IP addresses to VPC (and for IP routing)
+
+CIDR Block: CIDR blocks are group of address we are designed to allocate it to VPC
+
+subnet: A subnet is a range of IP addresses in your VPC. You can launch AWS resources into a specified subnet
+
+Some IP addresses are reserved they are 
+	10.0.0.0 Network address
+	10.0.0.1 VPC Router
+	10.0.0.2 DNS server (DNS. (Domain Name System) The Internet's system for converting alphabetic names into numeric IP addresses)
+	10.0.0.3 Future use 
+	10.0.0.255 N/W Broadcast address
+
+
+VPC:
+-----
+VPC spans multiple Availability zones.
+Subnets must be associated with route table 
+	A public subnet has a route to internet 
+	A private subnet doesn’t have route to internet. It creates higher level of security.
+
+VPC Peering: we can establish connection between 2 VPC
+
+(A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresse)
+
+public subnet and private subnet:
+------------------------------------
+A public subnet is associated with a route table that has a route to an Internet Gateway
+where as in private subnet, it associated with a route table that doesn't have a route to an internet gateway
+
+the private subnet can access the internet by using a network address translation (NAT) gateway that resides in the public subnet.
+
+Routing Table:
+-----------------
+A route table contains a set of rules, called routes, that are used to determine where network traffic from your subnet or gateway is directed.
+(its a self learning table, it is always maps the particuler route of that instanses)
+
+
+IGW (Internet Gateway)
+------------------------
+An Internet Gateway allows resources within your VPC to access the internet, and vice versa
+
+NAT Gateway( Network Address Translation Gateway)
+--------------------------------------------------
+NAT gateway is used to enable instances within a private network to connect to the internet.
+
+(It is used to connect from public subnet to private subnet via route table)
+
+
+
+how will you calculate no of IP Address
+
+we use: 2^32-n	here, [n: 0-32]
+if ip address is: 10.0.0.0/24	then, 2^32-24 = 2^8 = 256 ip's
+
+
+IPv4 and IPv6:
+-----------------
+IPv4	---> 2^32	-->total ip it can have
+IPv6	---> 2^128	-->total ip it can have
+
+IPv4 is a 32-Bit IP address, whereas 		IPv6 is a 128-Bit IP address.
+IPv4 is a numeric addressing method, whereas 	IPv6 is an alphanumeric addressing method.
+IPv4 binary bits are separated by a dot(.)  	IPv6 binary bits are separated by a colon(:)
+
+=================================================================================================================================================
+EKS (Elstic Kubernet services) : we set kumberntess with help of Ec2 machines
+
+Architecture :
+
+Master ---> slave1 ---slave2
+
+Kubernet's -> Two types
+1. Standalone kubernets : These are self managed kubernets (Managed by us) its complex proccess useally we prefer using managed one.
+( i have an idea how to setup )
+2. Managed kubernets (version 1.23) : Managed by AWS 
+	
+	Have you worked on Managed kubernates?
+	Yes , one of whcich is EKS ie. Elastic Kubernetes service 
+How do you set up kubernets?steps?
+
+workflow of kubernets with aws?
+ECR ( Elastic container registery we maintain our docker images in ECR )
+overall process of jenkins?
+we use git hub as version control tool once the code get commit into repo the jenkins job gets triggerd it will compile and build artifacts by using build tool
+once artifact are build , we use docker to contanerize our images , once we get docker images we push these images to ECR, where we maintain different version
+of docker images , once docer images are build successfully we deploy our application to kubernets . architecture with respect jenkins
+Jfrog : used to maintain version of artifacts
+
+ECS : Elastic container services ?
+
+ECS vs EKS VS ECR ?
+
+AWS Cognito : To maintain user pool with respect to our application we use Aws cognito
+
+types : user poll : used to access the application by users . (eg : user accessing flipkart )
+  identity poll : used to access application and database through credentials. ( Admin login to filpkart )
+  
+Elastic Benstalk :AWS Elastic Beanstalk helps you deploy and manage web applications with capacity provisioning, app health monitoring, and more.
+====================================================================================================================================================================
+ECS : Elestic container repository
+  Maven Lifecycle: Below is a representation of the default Maven lifecycle and its 8 steps:
+Validate, Compile, Test, Package, Integration test, Verify, Install and Deploy
+
+Pull request: It helps other users see and review your code changes before you merge them into main branch.
+
+There are 3 main stages:
+1) Git: Storing our source code to reposiratory
+
+2) Build Stage:	maven	|--> Maven life Cycle	-->pom.xml	(JAVA Project)
+		Gredal	|
+		Make	---> by useing Make 	-->Makefiles	(C project)
+
+   DOcker Images: It consists of OS layers --> JFROG Artifacts
+
+3) Deployment: in Kubernets (k8s)
+
+Note: The Whole process will be done in Junkin pipelines by writing junkinfiles
+
+in the same way we can have all the process/stages in AWS itself
+
+If we want to do a pipeline to build. then we need to create Buildspec.yml yamel file in aws.
+which consists of
+	Phases:
+		install
+		pre-build
+		build
+		post-build
+  
+in the same way, appspec.yml is for deployment of a build
+
+Note: In a jenkins pipeline we will write one jenkinsfile for building and deployment.
+	where as in AWS 
+	for build section we write buildspec.yml
+	for deploy section we write appspec.yml
+
+----------------------------------------------------------------------
+aws developer tools:
+	Code commit
+	code build
+	code deploy
+	code pipline
+	code artifact
+	(code star)
+
+CodeCommit: Create secure repositories for sharing your code in the cloud
+
+CodeArtifact: repository to securely store, publish, and share software packages.
+
+CodeBuild: it compiles source code, runs tests, and produces software packages that are ready to deploy
+
+CodeDeploy: Automate code deployments to maintain application uptime
+
+CodePipeline: is used to create your continuous delivery and continuous integration pipeline.
+
+CodeStar: is a cloud-based service for creating, managing, and working with software development projects on AWS
+
+Que: Do you know CodeCommit?
+	Yes, I know aws CodeCommit, aws CodeCommit similar kind of Github repository, where we can maintain our code in repository
+-------------------------------------------------------------------------------
+Que: Have you worked on Code build and code deploy?
+	Yes, i know aws code build, Code build maily used to build the perticular sourcecode, 
+if it is java project we build sourcecode with maven. if we want to create pipeline we need to write buildspec.yml with respect to codebuild.
+similarlly, if we go with deployment then we need to define things in appspec.yml file in order to deploy to respective environment
+---------------------------------------------------------------------------------
+Que: Have you created any pipline with respect to aws?
+	yes, I know how to create pipeline wrt aws, it mainly consists of Build and Deploy action. 
+in order to build, we need to write buildspec.yml file and in order to deploy, we need to write appspec.yml file
+and we need to configure all those things wrt aws pipeline. but, the thing is we are not using aws codebuild or codepipline, instead we are using jenkins.
+---------------------------------------------------------------------------------
+Que: Why you ar eusing jenkins? what is the reason to use jenkins?
+	This is our Project requirement, where we need to have cost cutting wrt aws codebuild and codedeploy. 
+rather than this we are using jenkins and its open source tool
+
+Que: What is CloudShell?
+	It provides an environment, where we can run our scripts
+
+
+topics to cover:
+	elastic benstalk
+	aws cognito
+	ACR ECS EKS
+
+
+=====================================================================================================================================
+Route 53 : Amazon Route 53 is a highly available and scalable Domain Name Server (DNS) web service,
+ where we can point IP address to domain name or point host name to another host name
+ 
+A Record: Maps IP address to domain name ex: 10.180.0.0 to myapp.mydomain.com
+CNAME Record: Maps hostname to another host name: us-east.2.elb.amazonaws.com to myapp.mydomain.com
+Alias Record: points a host name to AWS Resource ex: myapp.mydomain.com to us-east.2.elb.amazonaws.com
+
+Latency Routing Policy:
+	Use when you have resources in multiple AWS Regions, and you want to route traffic to the region that provides the best latency.
+Weighted Routing Policy:
+Use to route traffic to multiple resources in proportions that you specify.
+==========================================================================================================================================================
+
+types of ec2 instance?
+
+
+
